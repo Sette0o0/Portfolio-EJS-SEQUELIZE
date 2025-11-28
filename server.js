@@ -1,9 +1,10 @@
 const express = require("express");
-const methodOverride = require("method-override");
 const app = express();
 const port = 3000;
-const apiRoutes = require("./api");
-const { estudante, disciplinas, projetos, Tecnologias, contato } = require("./dados");
+
+const apiRoutes = require("./routes");
+const { syncDB, Estudante, Disciplina, Projeto, Tecnologia, Contato } = require("./models");
+const { seedDatabase } = require("./config/seed")
 
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
@@ -11,49 +12,36 @@ app.set("views", __dirname + "/views");
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(methodOverride("_method"));
 
 app.use("/api", apiRoutes);
 
-app.get("/", (req, res) => {
-  res.render("index", { nome: estudante.nome });
+app.get("/", async (req, res) => {
+  const estudante = await Estudante.findByPk(1);
+  res.render("index", { nome: estudante?.nome });
 });
 
-app.get("/sobre", (req, res) => {
+app.get("/sobre", async (req, res) => {
+  const estudante = await Estudante.findByPk(1);
   res.render("sobre", { estudante });
 });
 
-app.get("/disciplinas", (req, res) => {
+app.get("/disciplinas", async (req, res) => {
+  const estudante = await Estudante.findByPk(1);
+  const disciplinas = await Disciplina.findAll();
   res.render("disciplinas", { disciplinas, estudante });
 });
 
-app.post("/disciplinas", (req, res) => {
-  const { nome } = req.body;
-  if (nome && !disciplinas.includes(nome)) disciplinas.push(nome);
-  res.redirect("/disciplinas");
+app.get("/projetos", async (req, res) => {
+  const estudante = await Estudante.findByPk(1);
+  const projetos = await Projeto.findAll();
+  const tecnologias = await Tecnologia.findAll();
+  res.render("projetos", { projetos, estudante, Tecnologias: tecnologias });
 });
 
-app.delete("/disciplinas/:index", (req, res) => {
-  const { nome } = req.body;
-  const index = disciplinas.indexOf(nome);
-  if (index !== -1) disciplinas.splice(index, 1);
-  res.redirect("/disciplinas");
-});
-
-app.get("/projetos", (req, res) => {
-  res.render("projetos", { projetos, estudante, Tecnologias });
-});
-
-app.post("/projetos", (req, res) => {
-  const { titulo, descricao, link, techs } = req.body;
-  const tecnologiasSelecionadas = Array.isArray(techs) ? techs : [techs];
-  projetos.push({ titulo, descricao, link, techs: tecnologiasSelecionadas });
-  res.redirect("/projetos");
-});
-
-app.get("/dashboard", (req, res) => {
-  const totalDisciplinas = disciplinas.length;
-  const totalProjetos = projetos.length;
+app.get("/dashboard", async (req, res) => {
+  const estudante = await Estudante.findByPk(1);
+  const totalDisciplinas = await Disciplina.count();
+  const projetos = await Projeto.findAll();
 
   const contador = {};
   projetos.forEach((p) => {
@@ -67,15 +55,21 @@ app.get("/dashboard", (req, res) => {
     .map(([nome, qtd]) => ({ nome, qtd }));
 
   res.render("dashboard", {
-    dados: { totalDisciplinas, totalProjetos, tecnologias },
+    dados: { totalDisciplinas, totalProjetos: projetos.length, tecnologias },
     estudante,
   });
 });
 
-app.get("/contato", (req, res) => {
+app.get("/contato", async (req, res) => {
+  const estudante = await Estudante.findByPk(1);
+  const contato = await Contato.findByPk(1);
   res.render("contato", { contato, estudante });
 });
 
-app.listen(port, () => {
-  console.log(`Servidor rodando em http://localhost:${port}`);
+syncDB().then(() => {
+  seedDatabase().then(() => {
+    app.listen(port, () =>
+      console.log(`Servidor rodando em http://localhost:${port}`)
+    );
+  })
 });

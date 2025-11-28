@@ -1,4 +1,4 @@
-export let Tecnologias = Object.freeze({
+let Tecnologias = Object.freeze({
   node: "Node.js",
   express: "Express",
   ejs: "EJS",
@@ -13,14 +13,14 @@ export let Tecnologias = Object.freeze({
   typescript: "TypeScript",
 });
 
-export let estudante = {
+let estudante = {
   nome: "Rafael Sette de Araujo",
   curso: "Desenvolvimento de Sistemas Multiplataforma",
   instituicao: "Fatec SJC Jessen Vidal",
   anoIngresso: 2025,
 };
 
-export let disciplinas = [
+let disciplinas = [
   "Design Digital",
   "Desenvolvimento Web I",
   "Engenharia de Software I",
@@ -35,7 +35,7 @@ export let disciplinas = [
   "Técnica de Programação I",
 ]
 
-export let projetos = [
+let projetos = [
   {
     titulo: "API1 1/2025 - Site para Análise de Exportação e Importação das Cidade do Estado de São Paulo",
     descricao: "Desenvolvemos uma plataforma web com dados sobre o desempenho dos municípios do Estado de São Paulo no comércio exterior, com base em informações públicas do Ministério do Desenvolvimento. A proposta é fornecer dados claros e acessíveis para auxiliar na tomada de decisões. Utilizamos pandas no Google Colab para tratar arquivos .csv e Flask para criar o site. O projeto superou desafios como o processamento de grandes volumes de dados e a integração entre análise e visualização.",
@@ -50,7 +50,15 @@ export let projetos = [
   },
 ];
 
-export let contato = {
+let contato = {
   email: "sette@examplo.com",
   telefone: "(11) 99999-9999",
+};
+
+module.exports = {
+  Tecnologias,
+  estudante,
+  disciplinas,
+  projetos,
+  contato
 };
