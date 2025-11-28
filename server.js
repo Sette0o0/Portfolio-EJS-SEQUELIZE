@@ -33,20 +33,33 @@ app.get("/disciplinas", async (req, res) => {
 
 app.get("/projetos", async (req, res) => {
   const estudante = await Estudante.findByPk(1);
-  const projetos = await Projeto.findAll();
+
+  const projetos = await Projeto.findAll({
+    include: [{ model: Tecnologia }]
+  });
+
   const tecnologias = await Tecnologia.findAll();
-  res.render("projetos", { projetos, estudante, Tecnologias: tecnologias });
+
+  res.render("projetos", {
+    projetos,
+    estudante,
+    Tecnologias: tecnologias
+  });
 });
 
 app.get("/dashboard", async (req, res) => {
   const estudante = await Estudante.findByPk(1);
   const totalDisciplinas = await Disciplina.count();
-  const projetos = await Projeto.findAll();
+
+  const projetos = await Projeto.findAll({
+    include: [{ model: Tecnologia }]
+  });
 
   const contador = {};
+
   projetos.forEach((p) => {
-    p.techs.forEach((t) => {
-      contador[t] = (contador[t] || 0) + 1;
+    p.Tecnologia.forEach((t) => {
+      contador[t.nome] = (contador[t.nome] || 0) + 1;
     });
   });
 

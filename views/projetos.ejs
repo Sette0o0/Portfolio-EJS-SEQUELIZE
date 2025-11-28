@@ -6,7 +6,7 @@
     <li class="project-card">
       <h3><%= p.titulo %></h3>
       <p><%= p.descricao %></p>
-      <p><strong>Tecnologias:</strong> <%= p.techs.join(", ") %></p>
+      <p><strong>Tecnologias:</strong> <%= p.Tecnologia.map(t => t.nome).join(", ") %></p>
 
       <div style="display: flex; gap: 10px; align-items: center; margin-top: auto;">
         <% if (p.link) { %>
@@ -34,23 +34,5 @@
     </li>
   <% }) %>
 </ul>
-
-  <div class="add-form">
-    <h3>Adicionar Projeto</h3>
-    <form method="POST" action="/projetos">
-      <input type="text" name="titulo" placeholder="Título do projeto" required>
-      <textarea type="text" name="descricao" placeholder="Descrição" required></textarea>
-      <input type="text" name="link" placeholder="Link do projeto (opcional)">
-      <p><strong>Tecnologias:</strong></p>
-      <div style="display:flex; flex-wrap:wrap; gap:10px;">
-        <% Object.values(Tecnologias).forEach(t => { %>
-          <label style="background:#222; padding:5px 10px; border-radius:6px;">
-            <input type="checkbox" name="techs" value="<%= t %>"> <%= t %>
-          </label>
-        <% }) %>
-      </div>
-      <button type="submit">Adicionar</button>
-    </form>
-  </div>
 </section>
 <%- include('partials/footer', { nome: estudante.nome }) %>

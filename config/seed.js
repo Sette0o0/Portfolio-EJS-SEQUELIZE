@@ -1,5 +1,6 @@
 const sequelize = require("./database");
 const { Tecnologias, estudante, disciplinas, projetos } = require("../dados");
+const Contato = require("../models/Contato");
 
 async function seedDatabase() {
   await sequelize.query(
@@ -13,6 +14,14 @@ async function seedDatabase() {
       ]
     }
   );
+
+  await Contato.findOrCreate({
+    where: { id: 1 },
+    defaults: {
+      email: "meuemail@email.com",
+      telefone: "(00) 00000-0000"
+    }
+  });
 
   for (let d of disciplinas) {
     await sequelize.query(
