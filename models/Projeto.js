@@ -5,10 +5,6 @@ const Projeto = sequelize.define("Projeto", {
   titulo: DataTypes.STRING,
   descricao: DataTypes.TEXT,
   link: DataTypes.STRING,
-  techs: {
-    type: DataTypes.JSON,
-    defaultValue: [],
-  },
   createdAt: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
@@ -19,6 +15,7 @@ const Projeto = sequelize.define("Projeto", {
   }
 }, {
   timestamps: true,
+  tableName: "projetos",
 });
 
 module.exports = Projeto;

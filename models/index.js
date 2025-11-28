@@ -10,6 +10,17 @@ async function syncDB() {
   await sequelize.sync({ alter: true });
 }
 
+Projeto.belongsToMany(Tecnologia, {
+  through: ProjetoTecnologia,
+  foreignKey: "projeto_id"
+});
+
+Tecnologia.belongsToMany(Projeto, {
+  through: ProjetoTecnologia,
+  foreignKey: "tecnologia_id"
+});
+
+
 module.exports = {
   sequelize,
   Estudante,
