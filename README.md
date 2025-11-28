@@ -1,1 +1,1 @@
-# Portfolio-EJS-SEQUELIZE
+# PortfolioEJS

@@ -1,0 +1,188 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #111;
+  color: #eaeaea;
+}
+
+header {
+  background-color: black;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 2px solid #00bcd4;
+}
+
+header h1 {
+  margin: 0;
+  color: #00bcd4;
+}
+
+nav {
+  margin-top: 10px;
+}
+
+nav a {
+  color: #ccc;
+  margin: 0 10px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+nav a:hover {
+  color: #00bcd4;
+}
+
+main {
+  flex: 1;
+  padding: 30px;
+}
+main section {
+  margin: auto;
+  max-width: 900px;
+}
+  
+h2 {
+  color: #00bcd4;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.card-list, .project-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.card{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.card, .project-card {
+  background-color: #1f1f1f;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  transition: 0.3s;
+}
+
+.project-card{
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover, .project-card:hover {
+  border-color: #00bcd4;
+  transform: translateY(-4px);
+}
+
+.card form{
+  margin-left: auto;
+}
+
+.project-card form{
+  display: inline-block;
+}
+
+.btn-link {
+  display: inline-block;
+  color: #00bcd4;
+  text-decoration: none;
+  margin-top: 10px;
+}
+
+.add-form {
+  margin-top: 30px;
+  background-color: #1f1f1f;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.add-form input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  background-color: #2a2a2a;
+  border: 1px solid #333;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.add-form textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 10px;
+  margin: 8px 0;
+  background-color: #2a2a2a;
+  border: 1px solid #333;
+  color: #fff;
+  border-radius: 5px;
+  resize: vertical;
+}
+
+.add-form button {
+  background-color: #00bcd4;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 16px;
+}
+
+.add-form button:hover {
+  background-color: #00e5ff;
+}
+
+footer {
+  background-color: black;
+  padding: 15px;
+  text-align: center;
+  border-top: 2px solid #00bcd4;
+  color: #888;
+}
+
+.actions{
+  margin-left: auto;
+  display: flex;
+}
+
+.excluir{
+  display: flex;
+  align-items: center;
+  color: white;
+  background-color: red;
+  border: 1px solid black;
+  padding: 6px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.btn-editar{
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  color: white;
+  background-color: #008794;
+  border: 1px solid black;
+  padding: 6px;
+  border-radius: 7px;
+}
